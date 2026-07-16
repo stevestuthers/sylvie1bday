@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Sylvie 1st Birthday//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:sylvie1bday-20260905@stevestuthers.github.io
+DTSTAMP:20260715T120000Z
+DTSTART:20260905T163000Z
+DTEND:20260905T193000Z
+SUMMARY:Sylvie's 1st Birthday 🐰
+DESCRIPTION:Somebunny is turning ONE! Join us to celebrate Sylvie's first birthday. Details & RSVP: https://stevestuthers.github.io/sylvie1bday/
+LOCATION:18035 Dog Leg Road\, Marysville\, OH
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Sylvie's 1st Birthday tomorrow! 🐰
+TRIGGER:-P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR

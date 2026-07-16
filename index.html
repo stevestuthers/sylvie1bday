@@ -74,8 +74,6 @@ body{
   animation:flap .55s ease-in-out infinite alternate;
 }
 .butterfly .wingR{animation-name:flapR}
-.b1{top:14%;left:6%;animation-delay:0s}
-.b2{top:9%;right:7%;animation-delay:-8s;animation-duration:19s}
 @keyframes flap{from{transform:rotateY(0) scaleX(1)}to{transform:scaleX(.35)}}
 @keyframes flapR{from{transform:scaleX(-1)}to{transform:scaleX(-.35)}}
 @keyframes drift{
@@ -289,20 +287,7 @@ textarea{resize:vertical;min-height:84px}
 <div class="floral-top"><img src="assets/floral-top.png" alt=""></div>
 <div class="floral-bottom"><img src="assets/floral-bottom.png" alt=""></div>
 
-<div class="butterfly b1" aria-hidden="true">
-  <svg width="34" height="30" viewBox="0 0 32 32">
-    <g class="wingL"><path d="M15 16 C6 4, -2 8, 3 15 C-2 22, 7 27, 15 17 Z" fill="#b7a8e0" opacity=".8"/></g>
-    <g class="wingR"><path d="M17 16 C26 4, 34 8, 29 15 C34 22, 25 27, 17 17 Z" fill="#a290d4" opacity=".8"/></g>
-    <ellipse cx="16" cy="16.5" rx="1.6" ry="5" fill="#6e7452"/>
-  </svg>
-</div>
-<div class="butterfly b2" aria-hidden="true">
-  <svg width="28" height="25" viewBox="0 0 32 32">
-    <g class="wingL"><path d="M15 16 C6 4, -2 8, 3 15 C-2 22, 7 27, 15 17 Z" fill="#cbd39f" opacity=".85"/></g>
-    <g class="wingR"><path d="M17 16 C26 4, 34 8, 29 15 C34 22, 25 27, 17 17 Z" fill="#b7bf8a" opacity=".85"/></g>
-    <ellipse cx="16" cy="16.5" rx="1.6" ry="5" fill="#6e7452"/>
-  </svg>
-</div>
+<div id="butterflyField" aria-hidden="true"></div>
 
 <main class="page">
 
@@ -328,7 +313,7 @@ textarea{resize:vertical;min-height:84px}
 
     <div class="detail fade-seq d3">
       at 12:30 in the afternoon<br>
-      <a href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">18035 Dog Leg Road, Marysville, OH</a>
+      <a class="map-link" href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">18035 Dog Leg Road, Marysville, OH</a>
     </div>
 
     <div class="rsvp-note fade-seq d4">
@@ -339,8 +324,8 @@ textarea{resize:vertical;min-height:84px}
       <button class="btn" id="rsvpBtn" type="button">RSVP</button>
       <div class="already" id="alreadyNote">You&rsquo;ve already sent an RSVP &mdash; tap again to update it. 🐰</div>
       <div class="quick-links">
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sylvie%27s+1st+Birthday+%F0%9F%90%B0&dates=20260905T163000Z/20260905T193000Z&location=18035+Dog+Leg+Road,+Marysville,+OH&details=Somebunny+is+turning+ONE!+Join+us+to+celebrate+Sylvie%27s+first+birthday." target="_blank" rel="noopener">+ Add to Calendar</a>
-        <a href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">Directions</a>
+        <a class="cal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sylvie%27s+1st+Birthday+%F0%9F%90%B0&dates=20260905T163000Z/20260905T193000Z&location=18035+Dog+Leg+Road,+Marysville,+OH&details=Somebunny+is+turning+ONE!+Join+us+to+celebrate+Sylvie%27s+first+birthday." target="_blank" rel="noopener">+ Add to Calendar</a>
+        <a class="map-link" href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">Directions</a>
       </div>
     </div>
   </section>
@@ -415,8 +400,8 @@ textarea{resize:vertical;min-height:84px}
       Your RSVP has hopped its way to us.<br>We can&rsquo;t wait to celebrate with you! 🌷
     </p>
     <div class="quick-links" id="thanksLinks">
-      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sylvie%27s+1st+Birthday+%F0%9F%90%B0&dates=20260905T163000Z/20260905T193000Z&location=18035+Dog+Leg+Road,+Marysville,+OH&details=Somebunny+is+turning+ONE!+Join+us+to+celebrate+Sylvie%27s+first+birthday." target="_blank" rel="noopener">+ Add to Calendar</a>
-      <a href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">Directions</a>
+      <a class="cal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sylvie%27s+1st+Birthday+%F0%9F%90%B0&dates=20260905T163000Z/20260905T193000Z&location=18035+Dog+Leg+Road,+Marysville,+OH&details=Somebunny+is+turning+ONE!+Join+us+to+celebrate+Sylvie%27s+first+birthday." target="_blank" rel="noopener">+ Add to Calendar</a>
+      <a class="map-link" href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">Directions</a>
     </div>
     <div style="text-align:center">
       <button class="btn btn-secondary" id="thanksBackBtn" type="button">&larr; Back to invitation</button>
@@ -438,6 +423,47 @@ textarea{resize:vertical;min-height:84px}
     Object.keys(views).forEach(function(k){ views[k].classList.remove('active'); });
     views[name].classList.add('active');
     window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  /* butterflies — a whole flutter, scattered over the page */
+  var wingColors = [
+    ['#b7a8e0','#a290d4'], ['#cbd39f','#b7bf8a'], ['#e9cf8f','#ddb865'],
+    ['#d4a8b8','#c98fa5'], ['#a8c4d4','#8fb0c4']
+  ];
+  var spots = [
+    {top:'12%',left:'5%'},  {top:'8%',right:'8%'},   {top:'22%',right:'4%'},
+    {top:'30%',left:'3%'},  {top:'46%',right:'6%'},  {top:'52%',left:'7%'},
+    {top:'66%',right:'10%'},{top:'72%',left:'4%'},   {top:'86%',right:'5%'},
+    {top:'90%',left:'10%'}
+  ];
+  var field = document.getElementById('butterflyField');
+  spots.forEach(function(s, i){
+    var c = wingColors[i % wingColors.length];
+    var size = 24 + Math.round(Math.random()*20);
+    var d = document.createElement('div');
+    d.className = 'butterfly';
+    Object.keys(s).forEach(function(k){ d.style[k] = s[k]; });
+    d.style.animationDelay = (-Math.random()*16)+'s';
+    d.style.animationDuration = (13 + Math.random()*9)+'s';
+    d.innerHTML =
+      '<svg width="'+size+'" height="'+Math.round(size*0.88)+'" viewBox="0 0 32 32">'+
+      '<g class="wingL" style="animation-delay:'+(-Math.random()).toFixed(2)+'s"><path d="M15 16 C6 4, -2 8, 3 15 C-2 22, 7 27, 15 17 Z" fill="'+c[0]+'" opacity=".8"/></g>'+
+      '<g class="wingR" style="animation-delay:'+(-Math.random()).toFixed(2)+'s"><path d="M17 16 C26 4, 34 8, 29 15 C34 22, 25 27, 17 17 Z" fill="'+c[1]+'" opacity=".8"/></g>'+
+      '<ellipse cx="16" cy="16.5" rx="1.6" ry="5" fill="#6e7452"/></svg>';
+    field.appendChild(d);
+  });
+
+  /* device-aware calendar & maps links:
+     Apple devices get the native .ics / Apple Maps; everyone else keeps Google */
+  var isApple = /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+  if(isApple){
+    document.querySelectorAll('a.cal-link').forEach(function(a){
+      a.href = 'assets/sylvies-1st-birthday.ics';
+      a.removeAttribute('target');
+    });
+    document.querySelectorAll('a.map-link').forEach(function(a){
+      a.href = 'https://maps.apple.com/?q=18035+Dog+Leg+Road,+Marysville,+OH';
+    });
   }
 
   /* returning visitors: gentle reminder they already RSVP'd */
