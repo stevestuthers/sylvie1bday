@@ -91,6 +91,15 @@ body{
   text-align:center;
 }
 @media (min-width:700px){.page{padding-top:150px}}
+/* compact mobile layout so the RSVP button lands in the first viewport */
+@media (max-width:600px){
+  .page{padding:84px 20px 120px}
+  .bunny-wrap{width:46vw;margin:14px auto 10px}
+  .date-row{margin:12px 0 4px}
+  .detail{margin-top:6px;line-height:1.7}
+  .btn{margin-top:18px;padding:14px 40px}
+  .rsvp-note{margin-top:20px}
+}
 
 /* ---------- views ---------- */
 .view{display:none}
@@ -137,8 +146,13 @@ h1.script{font-size:clamp(3.4rem,13vw,5.6rem)}
 
 /* staggered fade-ins after the hop */
 .fade-seq{opacity:0;animation:riseIn .8s ease forwards}
-.d1{animation-delay:1.7s}.d2{animation-delay:2s}.d3{animation-delay:2.25s}.d4{animation-delay:2.5s}.d5{animation-delay:2.75s}
+.d1{animation-delay:1.35s}.d2{animation-delay:1.6s}.d3{animation-delay:1.8s}.d4{animation-delay:2s}.d5{animation-delay:2.2s}
 @keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* returning to the invitation from the form/thanks: skip the intro,
+   show everything instantly (Safari also fails to replay these) */
+#view-invite.replay .fade-seq{animation:none;opacity:1}
+#view-invite.replay .bunny-hop{animation:none}
 
 /* ---------- date block ---------- */
 .date-row{
@@ -316,13 +330,13 @@ textarea{resize:vertical;min-height:84px}
       <a class="map-link" href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">18035 Dog Leg Road, Marysville, OH</a>
     </div>
 
-    <div class="rsvp-note fade-seq d4">
-      kindly rsvp by august 21
+    <div class="fade-seq d4">
+      <button class="btn" id="rsvpBtn" type="button">RSVP</button>
+      <div class="already" id="alreadyNote">You&rsquo;ve already sent an RSVP &mdash; tap again to update it. 🐰</div>
     </div>
 
     <div class="fade-seq d5">
-      <button class="btn" id="rsvpBtn" type="button">RSVP</button>
-      <div class="already" id="alreadyNote">You&rsquo;ve already sent an RSVP &mdash; tap again to update it. 🐰</div>
+      <div class="rsvp-note">kindly rsvp by august 21</div>
       <div class="quick-links">
         <a class="cal-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sylvie%27s+1st+Birthday+%F0%9F%90%B0&dates=20260905T163000Z/20260905T193000Z&location=18035+Dog+Leg+Road,+Marysville,+OH&details=Somebunny+is+turning+ONE!+Join+us+to+celebrate+Sylvie%27s+first+birthday." target="_blank" rel="noopener">+ Add to Calendar</a>
         <a class="map-link" href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">Directions</a>
@@ -421,6 +435,9 @@ textarea{resize:vertical;min-height:84px}
 
   function show(name){
     Object.keys(views).forEach(function(k){ views[k].classList.remove('active'); });
+    /* any return to the invitation skips the intro animation — details
+       show instantly (Safari won't replay the animations anyway) */
+    if(name === 'invite') views.invite.classList.add('replay');
     views[name].classList.add('active');
     window.scrollTo({top:0, behavior:'smooth'});
   }
@@ -480,7 +497,7 @@ textarea{resize:vertical;min-height:84px}
       b.style.animationDuration = (5 + Math.random()*4)+'s';
       swarm.push(b);
     }
-    /* the bunny lands ≈1.9s into its hop — scatter! */
+    /* scatter when the bunny is about halfway to center */
     setTimeout(function(){
       swarm.forEach(function(b){
         var ang = Math.random()*Math.PI*2;
@@ -503,7 +520,7 @@ textarea{resize:vertical;min-height:84px}
           b.style.animationDuration = (13 + Math.random()*9)+'s';
         }, 1600);
       });
-    }, 1900);
+    }, 1100);
   }
 
   /* device-aware calendar & maps links:
