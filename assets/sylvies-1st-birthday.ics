@@ -13,6 +13,11 @@ DESCRIPTION:Somebunny is turning ONE! Join us to celebrate Sylvie's first birthd
 LOCATION:18035 Dog Leg Road\, Marysville\, OH
 BEGIN:VALARM
 ACTION:DISPLAY
+DESCRIPTION:Sylvie's 1st Birthday is one week away! 🐰
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
 DESCRIPTION:Sylvie's 1st Birthday tomorrow! 🐰
 TRIGGER:-P1D
 END:VALARM
