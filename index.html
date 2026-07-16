@@ -425,24 +425,27 @@ textarea{resize:vertical;min-height:84px}
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
-  /* butterflies — a whole flutter, scattered over the page */
+  /* butterflies — a swarm covers the invitation on load, then the bunny's
+     landing scatters them: most fly off-screen, ten settle around the edges */
   var wingColors = [
     ['#b7a8e0','#a290d4'], ['#cbd39f','#b7bf8a'], ['#e9cf8f','#ddb865'],
     ['#d4a8b8','#c98fa5'], ['#a8c4d4','#8fb0c4']
   ];
-  var spots = [
-    {top:'12%',left:'5%'},  {top:'8%',right:'8%'},   {top:'22%',right:'4%'},
-    {top:'30%',left:'3%'},  {top:'46%',right:'6%'},  {top:'52%',left:'7%'},
-    {top:'66%',right:'10%'},{top:'72%',left:'4%'},   {top:'86%',right:'5%'},
+  var keeperSpots = [
+    {top:'12%',left:'5%'},  {top:'8%',left:'88%'},  {top:'22%',left:'92%'},
+    {top:'30%',left:'3%'},  {top:'46%',left:'90%'}, {top:'52%',left:'7%'},
+    {top:'66%',left:'86%'}, {top:'72%',left:'4%'},  {top:'86%',left:'91%'},
     {top:'90%',left:'10%'}
   ];
   var field = document.getElementById('butterflyField');
-  spots.forEach(function(s, i){
-    var c = wingColors[i % wingColors.length];
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function makeButterfly(top, left){
+    var c = wingColors[Math.floor(Math.random()*wingColors.length)];
     var size = 24 + Math.round(Math.random()*20);
     var d = document.createElement('div');
     d.className = 'butterfly';
-    Object.keys(s).forEach(function(k){ d.style[k] = s[k]; });
+    d.style.top = top; d.style.left = left;
     d.style.animationDelay = (-Math.random()*16)+'s';
     d.style.animationDuration = (13 + Math.random()*9)+'s';
     d.innerHTML =
@@ -451,7 +454,57 @@ textarea{resize:vertical;min-height:84px}
       '<g class="wingR" style="animation-delay:'+(-Math.random()).toFixed(2)+'s"><path d="M17 16 C26 4, 34 8, 29 15 C34 22, 25 27, 17 17 Z" fill="'+c[1]+'" opacity=".8"/></g>'+
       '<ellipse cx="16" cy="16.5" rx="1.6" ry="5" fill="#6e7452"/></svg>';
     field.appendChild(d);
-  });
+    return d;
+  }
+  function centerSpot(){
+    return [(16 + Math.random()*52)+'%', (10 + Math.random()*74)+'%'];
+  }
+
+  if(reducedMotion){
+    /* no swarm — just the ten calm edge butterflies */
+    keeperSpots.forEach(function(s){ makeButterfly(s.top, s.left); });
+  } else {
+    /* everyone starts clustered over the middle, fluttering nervously */
+    var keepers = keeperSpots.map(function(s){
+      var p = centerSpot();
+      var b = makeButterfly(p[0], p[1]);
+      b.style.animationDuration = (5 + Math.random()*4)+'s';
+      b.dataset.top = s.top; b.dataset.left = s.left;
+      return b;
+    });
+    var swarm = [];
+    var swarmCount = window.innerWidth < 600 ? 38 : 60;
+    for(var i=0;i<swarmCount;i++){
+      var p = centerSpot();
+      var b = makeButterfly(p[0], p[1]);
+      b.style.animationDuration = (5 + Math.random()*4)+'s';
+      swarm.push(b);
+    }
+    /* the bunny lands ≈1.9s into its hop — scatter! */
+    setTimeout(function(){
+      swarm.forEach(function(b){
+        var ang = Math.random()*Math.PI*2;
+        var dist = 120 + Math.random()*60;
+        b.style.animation = 'none';
+        b.style.transition = 'transform 1.6s cubic-bezier(.5,0,.9,.6), opacity 1.6s ease';
+        b.style.transform = 'translate('+Math.round(Math.cos(ang)*dist)+'vw,'+Math.round(Math.sin(ang)*dist)+'vh) rotate('+Math.round((Math.random()-0.5)*540)+'deg)';
+        b.style.opacity = '0.4';
+        setTimeout(function(){ b.remove(); }, 1700);
+      });
+      keepers.forEach(function(b){
+        b.style.animation = 'none';
+        b.style.transition = 'top 1.5s ease-out, left 1.5s ease-out';
+        b.style.top = b.dataset.top;
+        b.style.left = b.dataset.left;
+        setTimeout(function(){
+          b.style.transition = '';
+          b.style.animation = '';
+          b.style.animationDelay = (-Math.random()*16)+'s';
+          b.style.animationDuration = (13 + Math.random()*9)+'s';
+        }, 1600);
+      });
+    }, 1900);
+  }
 
   /* device-aware calendar & maps links:
      Apple devices get the native .ics / Apple Maps; everyone else keeps Google */
