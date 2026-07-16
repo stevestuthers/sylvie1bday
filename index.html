@@ -1,65 +1,544 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sylvie's 1st Birthday</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Somebunny is Turning One — Sylvie's 1st Birthday</title>
+<meta name="description" content="Please join us to celebrate Sylvie's 1st Birthday — Saturday, September 5 at 12:30 PM, Marysville, OH. RSVP here!">
+<meta property="og:title" content="Somebunny is Turning One 🐰">
+<meta property="og:description" content="Sylvie's 1st Birthday — Sat, Sept 5 at 12:30 PM · Marysville, OH · Tap to RSVP">
+<meta property="og:image" content="https://stevestuthers.github.io/sylvie1bday/assets/bunny.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐰</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FCFBF6;
+  --lavender:#a290d4;
+  --lavender-deep:#8a76c4;
+  --olive:#6e7452;
+  --olive-soft:#8a8f6d;
+  --ink:#5c6147;
+  --berry:#c96f6f;
+  --butter:#e9cf8f;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  background:var(--cream);
+  color:var(--ink);
+  min-height:100vh;
+  overflow-x:hidden;
+}
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+/* ---------- floral frame ---------- */
+.floral-top,.floral-bottom{
+  position:fixed;left:0;width:100%;pointer-events:none;z-index:0;
+}
+.floral-top{top:0}
+.floral-bottom{bottom:0}
+.floral-top img,.floral-bottom img{
+  width:100%;height:auto;display:block;
+}
+.floral-top img{
+  -webkit-mask-image:linear-gradient(to bottom,#000 55%,transparent 96%);
+  mask-image:linear-gradient(to bottom,#000 55%,transparent 96%);
+}
+.floral-bottom img{
+  -webkit-mask-image:linear-gradient(to top,#000 55%,transparent 100%);
+  mask-image:linear-gradient(to top,#000 55%,transparent 100%);
+}
 
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
-        }
+/* ---------- butterflies ---------- */
+.butterfly{
+  position:fixed;z-index:3;pointer-events:none;
+  animation:drift 16s ease-in-out infinite;
+}
+.butterfly svg{display:block;overflow:visible}
+.butterfly .wingL,.butterfly .wingR{
+  transform-origin:16px 16px;
+  animation:flap .55s ease-in-out infinite alternate;
+}
+.butterfly .wingR{animation-name:flapR}
+.b1{top:14%;left:6%;animation-delay:0s}
+.b2{top:9%;right:7%;animation-delay:-8s;animation-duration:19s}
+@keyframes flap{from{transform:rotateY(0) scaleX(1)}to{transform:scaleX(.35)}}
+@keyframes flapR{from{transform:scaleX(-1)}to{transform:scaleX(-.35)}}
+@keyframes drift{
+  0%,100%{transform:translate(0,0) rotate(-6deg)}
+  25%{transform:translate(26px,-30px) rotate(7deg)}
+  50%{transform:translate(-14px,-52px) rotate(-4deg)}
+  75%{transform:translate(-30px,-16px) rotate(8deg)}
+}
 
-        h1 {
-            color: #FF69B4;
-            font-size: 3em;
-            margin-bottom: 20px;
-        }
+/* ---------- layout ---------- */
+.page{
+  position:relative;z-index:2;
+  max-width:640px;margin:0 auto;
+  padding:120px 24px 140px;
+  text-align:center;
+}
+@media (min-width:700px){.page{padding-top:150px}}
 
-        .subtitle {
-            color: #666;
-            font-size: 1.3em;
-            margin-bottom: 30px;
-        }
+/* ---------- views ---------- */
+.view{display:none}
+.view.active{display:block;animation:viewIn .7s ease both}
+@keyframes viewIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
-        .emoji {
-            font-size: 4em;
-            margin: 20px 0;
-        }
+/* ---------- typography ---------- */
+.script{
+  font-family:'Sacramento',cursive;
+  color:var(--lavender);
+  font-weight:400;line-height:1.05;
+}
+h1.script{font-size:clamp(3.4rem,13vw,5.6rem)}
+.turning{
+  font-size:clamp(1.15rem,4.4vw,1.7rem);
+  letter-spacing:.42em;text-indent:.42em;
+  color:var(--olive);text-transform:uppercase;
+  margin-top:2px;
+}
+.eyebrow{
+  font-size:clamp(.95rem,3.6vw,1.15rem);
+  letter-spacing:.34em;text-indent:.34em;
+  color:var(--olive);text-transform:uppercase;
+}
+.name-line{font-size:clamp(2.6rem,10vw,4rem);margin:.1em 0 .15em}
 
-        p {
-            color: #555;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-    </style>
+/* ---------- bunny ---------- */
+.bunny-wrap{margin:26px auto 20px;width:min(62vw,270px);position:relative}
+.bunny-wrap img{width:100%;height:auto;display:block}
+.bunny-hop{animation:hopIn 2s cubic-bezier(.45,0,.35,1) both}
+@keyframes hopIn{
+  0%{transform:translateX(-60vw) translateY(0);opacity:0}
+  10%{opacity:1}
+  15%{transform:translateX(-45vw) translateY(-46px)}
+  30%{transform:translateX(-30vw) translateY(0)}
+  45%{transform:translateX(-18vw) translateY(-34px)}
+  60%{transform:translateX(-8vw) translateY(0)}
+  75%{transform:translateX(-2vw) translateY(-20px)}
+  90%{transform:translateX(0) translateY(0)}
+  95%{transform:translateY(-6px)}
+  100%{transform:translateX(0) translateY(0);opacity:1}
+}
+.bunny-small{width:min(38vw,160px);margin:10px auto 16px}
+
+/* staggered fade-ins after the hop */
+.fade-seq{opacity:0;animation:riseIn .8s ease forwards}
+.d1{animation-delay:1.7s}.d2{animation-delay:2s}.d3{animation-delay:2.25s}.d4{animation-delay:2.5s}.d5{animation-delay:2.75s}
+@keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ---------- date block ---------- */
+.date-row{
+  display:flex;align-items:center;justify-content:center;gap:22px;
+  margin:20px 0 8px;color:var(--olive);
+}
+.date-row .day,.date-row .month{
+  font-size:clamp(1.05rem,4vw,1.4rem);letter-spacing:.3em;text-indent:.3em;text-transform:uppercase;
+}
+.date-row .num{
+  font-size:clamp(2.6rem,9vw,3.6rem);font-weight:500;line-height:1;
+  border-top:1.5px solid var(--olive-soft);border-bottom:1.5px solid var(--olive-soft);
+  padding:4px 10px;
+}
+.detail{
+  font-size:clamp(1.05rem,4.2vw,1.35rem);
+  letter-spacing:.18em;color:var(--olive);text-transform:uppercase;
+  margin-top:10px;line-height:1.9;
+}
+.detail a{color:var(--olive);text-decoration:underline;text-decoration-color:var(--lavender);text-underline-offset:4px}
+.rsvp-note{
+  font-size:clamp(1rem,3.8vw,1.15rem);letter-spacing:.14em;color:var(--olive-soft);
+  text-transform:uppercase;margin-top:22px;line-height:1.9;
+}
+
+/* ---------- buttons ---------- */
+.btn{
+  font-family:'Cormorant Garamond',serif;
+  display:inline-block;border:none;cursor:pointer;
+  background:var(--lavender);color:#fff;
+  font-size:1.35rem;letter-spacing:.24em;text-indent:.24em;text-transform:uppercase;
+  padding:16px 44px;border-radius:999px;
+  box-shadow:0 6px 20px rgba(162,144,212,.35);
+  transition:transform .25s ease,box-shadow .25s ease,background .25s ease;
+  margin-top:30px;
+}
+.btn:hover{transform:translateY(-3px);background:var(--lavender-deep);box-shadow:0 10px 26px rgba(162,144,212,.45)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn-secondary{
+  background:transparent;color:var(--olive);box-shadow:none;
+  border:1.5px solid var(--olive-soft);font-size:1.05rem;padding:10px 28px;margin-top:18px;
+}
+.btn-secondary:hover{background:rgba(110,116,82,.08);color:var(--olive);box-shadow:none}
+.already{
+  display:none;font-size:1.02rem;letter-spacing:.1em;color:var(--olive-soft);
+  margin-top:14px;font-style:italic;
+}
+
+/* calendar / map quick links */
+.quick-links{margin-top:26px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.quick-links a{
+  font-size:.95rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--olive);text-decoration:none;
+  border:1px solid rgba(138,143,109,.5);border-radius:999px;padding:8px 18px;
+  transition:background .2s ease;
+}
+.quick-links a:hover{background:rgba(162,144,212,.12)}
+
+/* ---------- form ---------- */
+.form-card{
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(162,144,212,.28);
+  border-radius:22px;
+  padding:34px 26px 38px;
+  backdrop-filter:blur(3px);
+  box-shadow:0 12px 40px rgba(110,116,82,.10);
+  text-align:left;
+}
+.form-title{text-align:center;font-size:clamp(2.6rem,9vw,3.4rem)}
+.form-sub{
+  text-align:center;font-size:1.05rem;letter-spacing:.22em;text-indent:.22em;
+  text-transform:uppercase;color:var(--olive);margin:2px 0 26px;
+}
+.field{margin-bottom:22px}
+.flabel{
+  display:block;font-size:1rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--olive);margin-bottom:8px;
+}
+input[type=text],textarea{
+  width:100%;font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--ink);
+  background:#fff;border:1.5px solid rgba(138,143,109,.45);border-radius:12px;
+  padding:12px 16px;outline:none;transition:border-color .2s ease,box-shadow .2s ease;
+}
+input[type=text]:focus,textarea:focus{border-color:var(--lavender);box-shadow:0 0 0 3px rgba(162,144,212,.18)}
+textarea{resize:vertical;min-height:84px}
+
+/* attending toggle */
+.attend-row{display:flex;gap:12px}
+.attend-row input{position:absolute;opacity:0;pointer-events:none}
+.attend-row label.choice{
+  flex:1;text-align:center;cursor:pointer;
+  border:1.5px solid rgba(138,143,109,.45);border-radius:14px;
+  padding:14px 8px;font-size:1.1rem;letter-spacing:.06em;color:var(--olive);
+  transition:all .2s ease;background:#fff;
+}
+.attend-row input:checked + label.choice{
+  border-color:var(--lavender);background:rgba(162,144,212,.14);
+  color:var(--lavender-deep);font-weight:600;box-shadow:0 0 0 3px rgba(162,144,212,.15);
+}
+.attend-row input:focus-visible + label.choice{outline:2px solid var(--lavender);outline-offset:2px}
+
+/* steppers */
+.counts{display:flex;gap:16px}
+.counts .field{flex:1;margin-bottom:0}
+.stepper{
+  display:flex;align-items:center;justify-content:space-between;
+  background:#fff;border:1.5px solid rgba(138,143,109,.45);border-radius:12px;overflow:hidden;
+}
+.stepper button{
+  border:none;background:transparent;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:1.7rem;color:var(--lavender-deep);
+  width:46px;height:50px;line-height:1;transition:background .15s ease;
+}
+.stepper button:hover{background:rgba(162,144,212,.12)}
+.stepper .count{font-size:1.4rem;color:var(--ink);min-width:2ch;text-align:center;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+#countsWrap{margin-bottom:22px;overflow:hidden;max-height:200px;transition:max-height .45s ease,opacity .35s ease;opacity:1}
+#countsWrap.hidden-counts{max-height:0;opacity:0;margin-bottom:0}
+
+.submit-row{text-align:center}
+.submit-row .btn{margin-top:8px;width:100%}
+.form-msg{text-align:center;margin-top:14px;font-size:1.05rem;font-style:italic;color:var(--berry);min-height:1.4em}
+.hp{display:none}
+
+/* ---------- thank-you ---------- */
+.thanks-script{font-size:clamp(3rem,11vw,4.6rem)}
+.thanks-body{font-size:1.3rem;line-height:1.7;margin-top:10px}
+
+/* ---------- petals ---------- */
+.petal{
+  position:fixed;top:-24px;z-index:5;pointer-events:none;border-radius:50% 0 50% 50%;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(720deg);opacity:.15}
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .fade-seq{opacity:1}
+}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Happy 1st Birthday Sylvie! 🎉</h1>
-        <p class="subtitle">Somebunny is One!</p>
-        <div class="emoji">🐰🎂🎈</div>
-        <p>Welcome to Sylvie's first birthday celebration!</p>
+
+<div class="floral-top"><img src="assets/floral-top.png" alt=""></div>
+<div class="floral-bottom"><img src="assets/floral-bottom.png" alt=""></div>
+
+<div class="butterfly b1" aria-hidden="true">
+  <svg width="34" height="30" viewBox="0 0 32 32">
+    <g class="wingL"><path d="M15 16 C6 4, -2 8, 3 15 C-2 22, 7 27, 15 17 Z" fill="#b7a8e0" opacity=".8"/></g>
+    <g class="wingR"><path d="M17 16 C26 4, 34 8, 29 15 C34 22, 25 27, 17 17 Z" fill="#a290d4" opacity=".8"/></g>
+    <ellipse cx="16" cy="16.5" rx="1.6" ry="5" fill="#6e7452"/>
+  </svg>
+</div>
+<div class="butterfly b2" aria-hidden="true">
+  <svg width="28" height="25" viewBox="0 0 32 32">
+    <g class="wingL"><path d="M15 16 C6 4, -2 8, 3 15 C-2 22, 7 27, 15 17 Z" fill="#cbd39f" opacity=".85"/></g>
+    <g class="wingR"><path d="M17 16 C26 4, 34 8, 29 15 C34 22, 25 27, 17 17 Z" fill="#b7bf8a" opacity=".85"/></g>
+    <ellipse cx="16" cy="16.5" rx="1.6" ry="5" fill="#6e7452"/>
+  </svg>
+</div>
+
+<main class="page">
+
+  <!-- ============ VIEW 1 : INVITATION ============ -->
+  <section id="view-invite" class="view active" aria-label="Invitation">
+    <h1 class="script">Somebunny</h1>
+    <div class="turning">is turning one</div>
+
+    <div class="bunny-wrap bunny-hop">
+      <img src="assets/bunny.png" alt="Watercolor bunny holding wildflowers">
     </div>
+
+    <div class="fade-seq d1">
+      <div class="eyebrow">please join us to celebrate</div>
+      <div class="script name-line">Sylvie&rsquo;s 1st Birthday</div>
+    </div>
+
+    <div class="date-row fade-seq d2">
+      <span class="day">Sat</span>
+      <span class="num">5</span>
+      <span class="month">Sept</span>
+    </div>
+
+    <div class="detail fade-seq d3">
+      at 12:30 in the afternoon<br>
+      <a href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">18035 Dog Leg Road, Marysville, OH</a>
+    </div>
+
+    <div class="rsvp-note fade-seq d4">
+      kindly rsvp by august 21
+    </div>
+
+    <div class="fade-seq d5">
+      <button class="btn" id="rsvpBtn" type="button">RSVP</button>
+      <div class="already" id="alreadyNote">You&rsquo;ve already sent an RSVP &mdash; tap again to update it. 🐰</div>
+      <div class="quick-links">
+        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sylvie%27s+1st+Birthday+%F0%9F%90%B0&dates=20260905T163000Z/20260905T193000Z&location=18035+Dog+Leg+Road,+Marysville,+OH&details=Somebunny+is+turning+ONE!+Join+us+to+celebrate+Sylvie%27s+first+birthday." target="_blank" rel="noopener">+ Add to Calendar</a>
+        <a href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">Directions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIEW 2 : RSVP FORM ============ -->
+  <section id="view-form" class="view" aria-label="RSVP form">
+    <h2 class="script form-title">RSVP</h2>
+    <div class="form-sub">Sylvie&rsquo;s 1st &middot; Sat, Sept 5</div>
+
+    <form id="rsvpForm" class="form-card" novalidate>
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+
+      <div class="field">
+        <label class="flabel" for="guestName">Your name(s)</label>
+        <input type="text" id="guestName" name="name" placeholder="The Hoppington Family" required autocomplete="name">
+      </div>
+
+      <div class="field">
+        <span class="flabel">Will you be joining us?</span>
+        <div class="attend-row" role="radiogroup" aria-label="Attending">
+          <input type="radio" id="attendYes" name="attending" value="Joyfully accepts 🐰" checked>
+          <label class="choice" for="attendYes">Joyfully accept 🌸</label>
+          <input type="radio" id="attendNo" name="attending" value="Regretfully declines">
+          <label class="choice" for="attendNo">Sadly can&rsquo;t make it</label>
+        </div>
+      </div>
+
+      <div id="countsWrap">
+        <div class="counts">
+          <div class="field">
+            <label class="flabel" for="adultCount">Adults</label>
+            <div class="stepper">
+              <button type="button" data-step="-1" data-target="adultCount" aria-label="Fewer adults">&minus;</button>
+              <span class="count" id="adultCount">1</span>
+              <button type="button" data-step="1" data-target="adultCount" aria-label="More adults">+</button>
+            </div>
+          </div>
+          <div class="field">
+            <label class="flabel" for="childCount">Children</label>
+            <div class="stepper">
+              <button type="button" data-step="-1" data-target="childCount" aria-label="Fewer children">&minus;</button>
+              <span class="count" id="childCount">0</span>
+              <button type="button" data-step="1" data-target="childCount" aria-label="More children">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="flabel" for="note">Note for the bunny <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
+        <textarea id="note" name="note" placeholder="Allergies, questions, or a little birthday wish…"></textarea>
+      </div>
+
+      <div class="submit-row">
+        <button class="btn" id="submitBtn" type="submit">Send RSVP</button>
+        <div class="form-msg" id="formMsg" role="status"></div>
+      </div>
+    </form>
+
+    <div style="text-align:center">
+      <button class="btn btn-secondary" id="backBtn" type="button">&larr; Back to invitation</button>
+    </div>
+  </section>
+
+  <!-- ============ VIEW 3 : THANK YOU ============ -->
+  <section id="view-thanks" class="view" aria-label="Thank you">
+    <div class="bunny-wrap bunny-small">
+      <img src="assets/bunny.png" alt="Watercolor bunny holding wildflowers">
+    </div>
+    <h2 class="script thanks-script" id="thanksTitle">Thank you!</h2>
+    <p class="thanks-body" id="thanksBody">
+      Your RSVP has hopped its way to us.<br>We can&rsquo;t wait to celebrate with you! 🌷
+    </p>
+    <div class="quick-links" id="thanksLinks">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sylvie%27s+1st+Birthday+%F0%9F%90%B0&dates=20260905T163000Z/20260905T193000Z&location=18035+Dog+Leg+Road,+Marysville,+OH&details=Somebunny+is+turning+ONE!+Join+us+to+celebrate+Sylvie%27s+first+birthday." target="_blank" rel="noopener">+ Add to Calendar</a>
+      <a href="https://maps.google.com/?q=18035+Dog+Leg+Road,+Marysville,+OH" target="_blank" rel="noopener">Directions</a>
+    </div>
+    <div style="text-align:center">
+      <button class="btn btn-secondary" id="thanksBackBtn" type="button">&larr; Back to invitation</button>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  var WEB3FORMS_KEY = "a81feb76-8ebb-46fd-a415-73741354d3d4";
+  var views = {
+    invite: document.getElementById('view-invite'),
+    form:   document.getElementById('view-form'),
+    thanks: document.getElementById('view-thanks')
+  };
+
+  function show(name){
+    Object.keys(views).forEach(function(k){ views[k].classList.remove('active'); });
+    views[name].classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  /* returning visitors: gentle reminder they already RSVP'd */
+  if(localStorage.getItem('sylvie_rsvp_sent')){
+    document.getElementById('alreadyNote').style.display='block';
+    document.getElementById('rsvpBtn').textContent='Update RSVP';
+  }
+
+  document.getElementById('rsvpBtn').addEventListener('click', function(){ show('form'); });
+  document.getElementById('backBtn').addEventListener('click', function(){ show('invite'); });
+  document.getElementById('thanksBackBtn').addEventListener('click', function(){ show('invite'); });
+
+  /* steppers */
+  document.querySelectorAll('.stepper button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var el = document.getElementById(btn.dataset.target);
+      var v = Math.max(0, Math.min(20, parseInt(el.textContent,10) + parseInt(btn.dataset.step,10)));
+      el.textContent = v;
+    });
+  });
+
+  /* hide headcount when declining */
+  var countsWrap = document.getElementById('countsWrap');
+  document.querySelectorAll('input[name="attending"]').forEach(function(r){
+    r.addEventListener('change', function(){
+      var declining = document.getElementById('attendNo').checked;
+      countsWrap.classList.toggle('hidden-counts', declining);
+    });
+  });
+
+  /* petals on success */
+  var petalColors = ['#b7a8e0','#e9cf8f','#c96f6f','#cbd39f','#a290d4','#f0dcd8'];
+  function petals(){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    for(var i=0;i<26;i++){
+      var p = document.createElement('div');
+      p.className = 'petal';
+      var s = 8 + Math.random()*10;
+      p.style.width = s+'px';
+      p.style.height = s+'px';
+      p.style.left = (Math.random()*100)+'vw';
+      p.style.background = petalColors[Math.floor(Math.random()*petalColors.length)];
+      p.style.animationDuration = (3.2 + Math.random()*3)+'s';
+      p.style.animationDelay = (Math.random()*1.4)+'s';
+      document.body.appendChild(p);
+      setTimeout(function(el){ return function(){ el.remove(); }; }(p), 9000);
+    }
+  }
+
+  /* submit */
+  var form = document.getElementById('rsvpForm');
+  var msg = document.getElementById('formMsg');
+  var submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('guestName').value.trim();
+    if(!name){ msg.textContent = 'Please tell us who is RSVPing 🐰'; return; }
+
+    var declining = document.getElementById('attendNo').checked;
+    var adults = document.getElementById('adultCount').textContent;
+    var children = document.getElementById('childCount').textContent;
+    if(!declining && parseInt(adults,10) + parseInt(children,10) === 0){
+      msg.textContent = 'Please add at least one guest to the headcount.'; return;
+    }
+
+    var payload = {
+      access_key: WEB3FORMS_KEY,
+      subject: '🐰 RSVP — ' + name + (declining ? ' (declines)' : ' (' + adults + 'A / ' + children + 'C)'),
+      from_name: "Sylvie's 1st Birthday RSVP",
+      "Guest Name": name,
+      "Attending": declining ? 'Regretfully declines' : 'Joyfully accepts',
+      "Adults": declining ? '0' : adults,
+      "Children": declining ? '0' : children,
+      "Note": document.getElementById('note').value.trim() || '—',
+      botcheck: form.querySelector('[name=botcheck]').checked
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    msg.textContent = '';
+
+    fetch('https://api.web3forms.com/submit', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify(payload)
+    }).then(function(r){ return r.json(); }).then(function(data){
+      if(data.success){
+        localStorage.setItem('sylvie_rsvp_sent','1');
+        if(declining){
+          document.getElementById('thanksTitle').textContent = "We'll miss you!";
+          document.getElementById('thanksBody').innerHTML = 'Thank you for letting us know.<br>Sylvie sends a bunny hug your way. 🤍';
+          document.getElementById('thanksLinks').style.display = 'none';
+        } else {
+          document.getElementById('thanksTitle').textContent = 'Thank you!';
+          document.getElementById('thanksBody').innerHTML = 'Your RSVP has hopped its way to us.<br>We can&rsquo;t wait to celebrate with you! 🌷';
+          document.getElementById('thanksLinks').style.display = '';
+          petals();
+        }
+        show('thanks');
+        document.getElementById('alreadyNote').style.display='block';
+        document.getElementById('rsvpBtn').textContent='Update RSVP';
+      } else {
+        msg.textContent = 'Hmm, something went wrong. Please try again — or text Sami at 330-635-9129.';
+      }
+    }).catch(function(){
+      msg.textContent = 'Could not send just now. Please try again — or text Sami at 330-635-9129.';
+    }).finally(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send RSVP';
+    });
+  });
+})();
+</script>
 </body>
 </html>
